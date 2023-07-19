@@ -2,7 +2,7 @@
 
 source scripts/l4t_version.sh
 
-if [ $ARCH = "aarch65" ]; then
+if [ $ARCH = "aarch64" ]; then
 	BASE_IMAGE="nvcr.io/nvidia/l4t-base:r$L4T_VERSION"
 	BASE_DEVEL="nvcr.io/nvidian/nvidia-l4t-base:r$L4T_VERSION"
 
@@ -23,7 +23,6 @@ if [ $ARCH = "aarch65" ]; then
 			if [ $L4T_REVISION_MINOR -ne 1 ]; then
 				BASE_IMAGE="nvcr.io/nvidia/l4t-base:r32.7.1"
 			fi
-		fi
 		elif [ $L4T_REVISION_MAJOR -gt 7 ]; then
 			BASE_IMAGE=$BASE_DEVEL
 		fi
