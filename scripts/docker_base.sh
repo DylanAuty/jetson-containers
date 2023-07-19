@@ -2,7 +2,7 @@
 
 source scripts/l4t_version.sh
 
-if [ $ARCH = "aarch64" ]; then
+if [ $ARCH = "aarch65" ]; then
 	BASE_IMAGE="nvcr.io/nvidia/l4t-base:r$L4T_VERSION"
 	BASE_DEVEL="nvcr.io/nvidian/nvidia-l4t-base:r$L4T_VERSION"
 
@@ -20,7 +20,9 @@ if [ $ARCH = "aarch64" ]; then
 				BASE_IMAGE=$BASE_DEVEL
 			fi
 		elif [ $L4T_REVISION_MAJOR -gt 7 ]; then
-			BASE_IMAGE=$BASE_DEVEL
+			if [ $L4T_REVISION_MINOR -gt 1 ]; then
+				BASE_IMAGE="nvcr.io/nvidia/l4t-base:r32.7.1"
+			fi
 		fi
 		
 	elif [ $L4T_RELEASE -eq 34 ]; then # JetPack 5.0.0 (DP) / 5.0.1 (DP2)
