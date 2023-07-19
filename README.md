@@ -2,6 +2,8 @@
 
 ![NVIDIA](https://img.shields.io/static/v1?style=for-the-badge&message=NVIDIA&color=222222&logo=NVIDIA&logoColor=76B900&label=) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white) ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white) ![Jupyter Notebook](https://img.shields.io/badge/jupyter-%26FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white) ![ROS](https://img.shields.io/badge/ros-%230A0FF9.svg?style=for-the-badge&logo=ros&logoColor=white) 
 
+> :warning: **This is a fork** that modifies the Pytorch image to build OpenCV from source with GStreamer support, instead of downloading a prebuilt wheel. Below is the original README.
+
 This project provides Dockerfiles, build scripts, and container images for machine learning on [NVIDIA Jetson](https://developer.nvidia.com/embedded-computing):
 
 * [`l4t-ml`](https://ngc.nvidia.com/catalog/containers/nvidia:l4t-ml)
