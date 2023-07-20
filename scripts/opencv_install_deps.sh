@@ -55,7 +55,7 @@ apt-get install -y --no-install-recommends \
 # Dependencies for gcc-10
 add-apt-repository ppa:ubuntu-toolchain-r/test
 apt update
-apt install gcc-10
+apt install -y gcc-10
 
 export CC=/usr/bin/gcc-10
 export CXX=/usr/bin/g++-10
