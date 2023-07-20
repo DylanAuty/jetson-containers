@@ -48,7 +48,19 @@ apt-get install -y --no-install-recommends \
         pkg-config \
         qv4l2 \
         v4l-utils \
-        zlib1g-dev
+        zlib1g-dev \
+		g++-10
+
+# Dependencies for gcc-10
+add-apt-repository ppa:ubuntu-toolchain-r/test
+apt update
+apt install gcc-10
+
+export CC=/usr/bin/gcc-10
+export CXX=/usr/bin/g++-10
+export CUDA_ROOT=/usr/local/cuda
+ln -s /usr/bin/gcc-10 $CUDA_ROOT/bin/gcc
+ln -s /usr/bin/g++-10 $CUDA_ROOT/bin/g++
 
 # on x86, the python dev packages are already installed in the NGC containers under conda
 # and installing them again from apt messes up their proper detection, so skip doing that
