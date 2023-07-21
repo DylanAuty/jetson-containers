@@ -27,8 +27,6 @@ ARG OPENCV_VERSION="4.4.0"
 
 # install build dependencies
 COPY scripts/opencv_install_deps.sh opencv_install_deps.sh
-RUN ln -s /usr/bin/gcc-10 /usr/local/cuda/bin/gcc
-RUN ln -s /usr/bin/g++-10 /usr/local/cuda/bin/g++
 RUN ./opencv_install_deps.sh
 
 # OpenCV looks for the cuDNN version in cudnn_version.h, but it's been renamed to cudnn_version_v8.h

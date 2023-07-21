@@ -11,7 +11,10 @@ build_opencv()
 
 	if [ $ARCH = "aarch64" ]; then
 		local container_tag="opencv-builder:r$L4T_VERSION-cv$opencv_version"
-		local cuda_arch_bin="5.3,6.2,7.2,8.7"
+		# This must match the CUDA architecture for the target device. 
+		# For the Jetson TX2, this is 6.2 (from SM62 or compute_62)
+		#local cuda_arch_bin="5.3,6.2,7.2,8.7"
+		local cuda_arch_bin="5.3,6.2"
 		local enable_neon="ON"
 	elif [ $ARCH = "x86_64" ]; then
 		local container_tag="opencv-builder:cv$opencv_version"
@@ -47,7 +50,8 @@ build_opencv()
 			$container_tag \
 			cp opencv/build/OpenCV-${opencv_version}-$ARCH.tar.gz /mount
 			
-	echo "packages are at $PWD/packages/OpenCV-${opencv_version}-$ARCH.tar.gz"
+	OPENCV_DEB_PATH=$PWD/packages/OpenCV-${opencv_version}-$ARCH.tar.gz
+	echo "packages are at $OPENCV_DEB_PATH"
 }
 	
 build_opencv $OPENCV_VERSION
