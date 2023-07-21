@@ -8,6 +8,11 @@ OPENCV_VERSION=${1:-"4.5.0"}
 build_opencv()
 {
 	local opencv_version=$1
+	if [ -f "$PWD/packages/OpenCV-${opencv_version}-$ARCH.tar.gz" ]; then
+		echo "OpenCV Packages already exist. Not continuing with OpenCV build."
+		OPENCV_DEB_PATH=$PWD/packages/OpenCV-${opencv_version}-$ARCH.tar.gz
+		return
+	fi
 
 	if [ $ARCH = "aarch64" ]; then
 		local container_tag="opencv-builder:r$L4T_VERSION-cv$opencv_version"

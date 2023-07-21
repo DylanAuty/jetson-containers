@@ -5,6 +5,7 @@ set -e
 source scripts/docker_base.sh
 source scripts/opencv_version.sh
 source scripts/python_version.sh
+source scripts/docker_build_opencv.sh
 
 CONTAINERS=${1:-"all"}
 
@@ -19,7 +20,8 @@ build_pytorch()
 	
 	local vision_version=$4
 	local audio_version=$5
-	local cuda_arch_list="5.3;6.2;7.2"
+	#local cuda_arch_list="5.3;6.2;7.2"
+	local cuda_arch_list="5.3;6.2"	# Modified for compute_62 (Jetson TX2)
 	
 	if [[ $L4T_RELEASE -ge 34 ]]; then  
 		cuda_arch_list="7.2;8.7" # JetPack 5.x (Xavier/Orin)
@@ -34,8 +36,9 @@ build_pytorch()
 			--build-arg TORCHVISION_VERSION=$vision_version \
 			--build-arg TORCHAUDIO_VERSION=$audio_version \
 			--build-arg TORCH_CUDA_ARCH_LIST=$cuda_arch_list \
-			--build-arg OPENCV_URL=$OPENCV_URL \
-			--build-arg OPENCV_DEB=$OPENCV_DEB 
+			--build-arg OPENCV_DEB_PATH=$OPENCV_DEB_PATH
+			#--build-arg OPENCV_URL=$OPENCV_URL \
+			#--build-arg OPENCV_DEB=$OPENCV_DEB 
 
 	echo "done building PyTorch $pytorch_whl, torchvision $vision_version, torchaudio $audio_version, cuda arch $cuda_arch_list"
 }
@@ -90,18 +93,18 @@ if [[ "$CONTAINERS" == "pytorch" || "$CONTAINERS" == "all" ]]; then
 		#			"v0.8.0"
 			
 		# PyTorch v1.9.0
-		build_pytorch "https://nvidia.box.com/shared/static/h1z9sw4bb1ybi0rm3tu8qdj8hs05ljbm.whl" \
-					"torch-1.9.0-cp36-cp36m-linux_aarch64.whl" \
-					"l4t-pytorch:r$L4T_VERSION-pth1.9-py3" \
-					"v0.10.0" \
-					"v0.9.0"
-					
-		# PyTorch v1.10.0
-		build_pytorch "https://nvidia.box.com/shared/static/fjtbno0vpo676a25cgvuqc1wty0fkkg6.whl" \
-					"torch-1.10.0-cp36-cp36m-linux_aarch64.whl" \
-					"l4t-pytorch:r$L4T_VERSION-pth1.10-py3" \
-					"v0.11.1" \
-					"v0.10.0"
+		#build_pytorch "https://nvidia.box.com/shared/static/h1z9sw4bb1ybi0rm3tu8qdj8hs05ljbm.whl" \
+		#			"torch-1.9.0-cp36-cp36m-linux_aarch64.whl" \
+		#			"l4t-pytorch:r$L4T_VERSION-pth1.9-py3" \
+		#			"v0.10.0" \
+		#			"v0.9.0"
+		#			
+		## PyTorch v1.10.0
+		#build_pytorch "https://nvidia.box.com/shared/static/fjtbno0vpo676a25cgvuqc1wty0fkkg6.whl" \
+		#			"torch-1.10.0-cp36-cp36m-linux_aarch64.whl" \
+		#			"l4t-pytorch:r$L4T_VERSION-pth1.10-py3" \
+		#			"v0.11.1" \
+		#			"v0.10.0"
 					
 		# PyTorch v1.11.0
 		build_pytorch "https://developer.download.nvidia.com/compute/redist/jp/v461/pytorch/torch-1.11.0a0+17540c5-cp36-cp36m-linux_aarch64.whl" \

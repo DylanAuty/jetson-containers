@@ -140,9 +140,9 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-RUN pip3 install --no-cache-dir scikit-build && \
-    pip3 install --no-cache-dir ninja && \
-    pip3 install --no-cache-dir --verbose pysoundfile
+RUN python3 -m pip install --no-cache-dir scikit-build && \
+    python3 -m pip install --no-cache-dir ninja && \
+    python3 -m pip install --no-cache-dir --verbose pysoundfile
 
 # note:  see https://github.com/pytorch/audio/issues/2295 for the reason for the sed commands
 RUN git clone --branch ${TORCHAUDIO_VERSION} --recursive --depth=1 https://github.com/pytorch/audio torchaudio && \
@@ -158,11 +158,22 @@ RUN git clone --branch ${TORCHAUDIO_VERSION} --recursive --depth=1 https://githu
 # 
 # install OpenCV (with CUDA)
 #
-ARG OPENCV_URL=https://nvidia.box.com/shared/static/5v89u6g5rb62fpz4lh0rz531ajo2t5ef.gz
-ARG OPENCV_DEB=OpenCV-4.5.0-aarch64.tar.gz
+#ARG OPENCV_URL=https://nvidia.box.com/shared/static/5v89u6g5rb62fpz4lh0rz531ajo2t5ef.gz
+#ARG OPENCV_DEB=OpenCV-4.5.0-aarch64.tar.gz
+#
+#COPY scripts/opencv_install.sh /tmp/opencv_install.sh
+#RUN cd /tmp && ./opencv_install.sh ${OPENCV_URL} ${OPENCV_DEB}
 
-COPY scripts/opencv_install.sh /tmp/opencv_install.sh
-RUN cd /tmp && ./opencv_install.sh ${OPENCV_URL} ${OPENCV_DEB}
+# install OpenCV from the .deb files compiled from source in the build script
+ARG OPENCV_DEB_PATH=packages/OpenCV-4.5.0-aarch64.tar.gz
+COPY ./packages /tmp/${OPENCV_DEB_PATH}
+RUN tar -xzf /tmp/${OPENCV_DEB_PATH} && \
+RUN apt-get install -y --no-install-recommends \
+	/tmp/${OPENCV_DEB_PATH}/*.deb \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& apt-get clean
+
+
 
 
 #
@@ -185,3 +196,13 @@ RUN pip3 install --no-cache-dir --verbose pycuda six
 #	head /usr/local/lib/python3.8/dist-packages/torch/version.py; \
 #	head /usr/local/lib/python3.8/dist-packages/torch-2.0.0.nv23.05.dist-info/METADATA; \
 #    fi
+
+
+RUN apt-get update && \
+    apt-get install -y \
+		zip \
+		htop \
+		screen \
+		libgl1-mesa-glx
+
+RUN python3 -m pip install --no-cache-dir seaborn thop
