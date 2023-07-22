@@ -11,7 +11,7 @@ CONTAINERS=${1:-"all"}
 
 # Version of pytorch available for this L4T. See https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-pytorch
 PYTORCH_VERSION=1.10
-BASE_PYTORCH="$(echo $BASE_IMAGE | sed 's/base/pytorch/g')-pty$PYTORCH_VERSION-py3"
+BASE_PYTORCH="$(echo $BASE_IMAGE | sed 's/base/pytorch/g')-pth$PYTORCH_VERSION-py3"
 echo $OPENCV_DEB_PATH
 
 build_yolo()
