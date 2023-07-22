@@ -8,9 +8,9 @@ OPENCV_VERSION=${1:-"4.5.0"}
 build_opencv()
 {
 	local opencv_version=$1
+	OPENCV_DEB_PATH=packages/OpenCV-${opencv_version}-$ARCH.tar.gz
 	if [ -f "$PWD/packages/OpenCV-${opencv_version}-$ARCH.tar.gz" ]; then
 		echo "OpenCV Packages already exist. Not continuing with OpenCV build."
-		OPENCV_DEB_PATH=$PWD/packages/OpenCV-${opencv_version}-$ARCH.tar.gz
 		return
 	fi
 
@@ -55,7 +55,6 @@ build_opencv()
 			$container_tag \
 			cp opencv/build/OpenCV-${opencv_version}-$ARCH.tar.gz /mount
 			
-	OPENCV_DEB_PATH=packages/OpenCV-${opencv_version}-$ARCH.tar.gz
 	echo "packages are at $PWD/$OPENCV_DEB_PATH"
 }
 	
