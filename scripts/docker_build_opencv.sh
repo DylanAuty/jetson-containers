@@ -55,8 +55,8 @@ build_opencv()
 			$container_tag \
 			cp opencv/build/OpenCV-${opencv_version}-$ARCH.tar.gz /mount
 			
-	OPENCV_DEB_PATH=$PWD/packages/OpenCV-${opencv_version}-$ARCH.tar.gz
-	echo "packages are at $OPENCV_DEB_PATH"
+	OPENCV_DEB_PATH=packages/OpenCV-${opencv_version}-$ARCH.tar.gz
+	echo "packages are at $PWD/$OPENCV_DEB_PATH"
 }
 	
 build_opencv $OPENCV_VERSION

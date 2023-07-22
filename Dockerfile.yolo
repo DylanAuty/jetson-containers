@@ -1,6 +1,7 @@
 # Docker image that will run YOLO.
 # Starts with pre-built Pytorch 1.10 image, and installs OpenCV .debs compiled with GStreamer plus YOLO dependencies.
-FROM nvcr.io/nvidia/l4t-pytorch:r32.7.1-pth1.10-py3
+ARG BASE_IMAGE=nvcr.io/nvidia/l4t-pytorch:r32.7.1-pty1.10-py3
+FROM ${BASE_IMAGE}
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -10,15 +11,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test; exit 0
 RUN apt-get install -y gcc-10
 
-# Installing OpenCV .debs. They need to have already been built.
-ARG OPENCV_DEB_NAME=OpenCV-4.5.0-aarch64.tar.gz
-ARG OPENCV_DEB_DIR_PATH=./packages
+# Installing OpenCV .debs. They need to already have been built.
+ARG OPENCV_DEB_PATH=./packages/OpenCV-4.5.0-aarch64.tar.gz
 RUN mkdir /tmp/opencv
-COPY ${OPENCV_DEB_DIR_PATH}/${OPENCV_DEV_NAME} /tmp/opencv
+COPY ${OPENCV_DEB_PATH} /tmp/opencv
 RUN tar -xzf /tmp/opencv/*.tar.gz
 RUN apt-get install -y --no-install-recommends \
         /tmp/opencv/*.deb \
         && rm -rf /var/lib/apt/lists/* \
         && apt-get clean
+RUN rm -r /tmp/opencv
 
 
