@@ -17,7 +17,7 @@ echo $OPENCV_DEB_PATH
 build_yolo()
 {
     echo "Building docker image from base: $BASE_PYTORCH"
-    docker build --network=host -t "$L4T_VERSION-pth1.10-yolo" \
+    docker build --network=host -t "r$L4T_VERSION-pth1.10-yolo" \
 		. \
 		-f ./Dockerfile.yolo \
         --build-arg BASE_IMAGE=$BASE_PYTORCH \
