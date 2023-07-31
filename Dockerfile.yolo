@@ -22,4 +22,6 @@ RUN apt-get install -y \
         && apt-get clean
 RUN rm -r /tmp/opencv
 
+RUN python3 -m pip install \
+	jsonrpclib-pelix
 
