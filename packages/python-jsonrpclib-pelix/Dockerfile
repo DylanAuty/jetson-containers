@@ -1,8 +1,9 @@
 #---
 # name: python-jsonrpclib-pelix
-# group: other
+# alis: [jsonrpclib, jsonrpclib-pelix, python-jsonrpclib]
 # depends: [build-essential, python]
 # test: test.py
+# notes: Container for jsonrpc server running in python (jsonrpclib-pelix)
 #---
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
