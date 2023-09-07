@@ -1,6 +1,6 @@
 #---
 # name: python-jsonrpclib-pelix
-# alis: [jsonrpclib, jsonrpclib-pelix, python-jsonrpclib]
+# alias: [jsonrpclib, jsonrpclib-pelix, python-jsonrpclib]
 # depends: [build-essential, python]
 # test: test.py
 # notes: Container for jsonrpc server running in python (jsonrpclib-pelix)

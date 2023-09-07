@@ -1,9 +1,9 @@
 #---
-# name: python-jsonrpclib-pelix
-# alis: [jsonrpclib, jsonrpclib-pelix, python-jsonrpclib]
-# depends: [build-essential, python]
+# name: python-ultralytics
+# alias: [ultralytics]
+# depends: [build-essential, python, torchvision]
 # test: test.py
-# notes: Container for jsonrpc server running in python (jsonrpclib-pelix)
+# notes: Container for ultralytics
 #---
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
